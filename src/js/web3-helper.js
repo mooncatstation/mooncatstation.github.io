@@ -56,6 +56,11 @@ var helper = {
   {
     return 42
   },
+  xdaiChainID()
+  {
+    return 100
+  },
+
 
   getWeb3NetworkName(networkId){
 
@@ -65,6 +70,10 @@ var helper = {
 
     if(networkId == this.kovanChainID()){
       return 'kovan'
+    }
+
+    if(networkId == this.xdaiChainID()){
+      return 'xdai'
     }
 
         console.error('Invalid network Id!')

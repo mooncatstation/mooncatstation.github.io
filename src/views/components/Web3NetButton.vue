@@ -25,6 +25,9 @@ export default {
       if(this.providerNetworkID == 42){
         return 'Kovan'
       }
+       if(this.providerNetworkID == 100){
+        return 'xDai'
+      }
       return 'InvalidNetwork'
     }
 

@@ -14,54 +14,18 @@
    <div class="section dark autospacing ">
      <div class="w-container pt-8">
 
-        <ZapPanel />
-
-        <div class="text-gray-100 p-8">
-          Since 0xBTC is a pure PoW Mineable Token, providing liquidity to the 0xBTC-ETH trading liquidity pool has special attributes and benefits.  As miners mint new 0xBTC from the contract, it costs a small amount of ETH for gas.
-          <br><br>
-          Naturally, for the miners to continue mining, some will swap 0xBTC back to ETH using a Decentralized Exchange like Uniswap.  By providing liquidity for this pair on Uniswap, you are indirectly earning some of the 0xBTC that is being mined while also helping reduce price slippage for the miners and other traders.
-          <br><br>
-          Farm.mineabletokens is a dapp that makes it very simple to provide liquidity to the 0xBTC-ETH pair on Uniswap to earn interest by accepting those fees.
-
-        </div>
+       <h1>Moon cat viewer</h1>
+        <h3>View Guide</h3>
+        <p>If you look at your transaction history and view the first transaction you sent; under the input data if you decode the input data you see the catId which you can paste into this site created by a rescuer!</p>
+        <button onclick="generateMoonCatImage(document.getElementById('catId').value,10)">Meow</button>
+        <input id="catId" type="text" placeholder="Cat Id">
+        <br>
+            <canvas id="cat-canvas" width="100%"> </canvas>
 
      </div>
    </div>
 
-   <div class="section ctas">
-     <div class="autospacing w-container">
-       <div class="w-row">
-
-       </div>
-       <div class="w-row">
-         <div class="column w-col w-col-6  ">
-
-
-
-            <h2 class="text-yellow-500"> 0xBTC-ETH Pair </h2>
-
-            <a href="https://0xbtc.info/" target="_blank" class='text-gray-200'>
-                 -> 0xBTC Mining Stats
-                </a>
-                <br>
-
-           <a href="https://info.uniswap.org/pair/0xc12c4c3e0008b838f75189bfb39283467cf6e5b3" target="_blank" class='text-gray-200'>
-                -> Uni Pool Statistics
-
-               </a>
-
-
-
-         </div>
-         <div class="column-2 w-col w-col-6"><img src="@/assets/images/coins.svg" width="125" height="125" alt="">
-
-         </div>
-       </div>
-     </div>
-   </div>
-   <div class="section dark autospacing  ">
-
-   </div>
+ 
 
   <Footer/>
 
@@ -74,6 +38,10 @@ import Navbar from './components/Navbar.vue';
 import ZapPanel from './components/ZapPanel.vue';
 import Footer from './components/Footer.vue';
 
+import MoonCatTools from '../js/moon-cat-tools.js' 
+
+let moonCatTools = new MoonCatTools()
+
 export default {
   name: 'Home',
   props: [],
@@ -83,8 +51,33 @@ export default {
 
     }
   },
+  mounted: function () {
+      this.generateMoonCatImage('0x0064c9c57b', 2 );
+  },
   methods: {
+          generateMoonCatImage(catId, size){
+            console.log('meow', catId)
+            size = size || 10;
+            var data = moonCatTools.generateMoonCatImage(catId);
+            var canvas = document.getElementById("cat-canvas");
+            canvas.width = size * data.length;
+            canvas.height = size * data[1].length;
+            var ctx = canvas.getContext("2d");
 
+
+           console.log('meow', data)
+
+
+            for(var i = 0; i < data.length; i++){
+              for(var j = 0; j < data[i].length; j++){
+                var color = data[i][j];
+                if(color){
+                  ctx.fillStyle = color;
+                  ctx.fillRect(i * size, j * size, size, size);
+                }
+              }
+            }
+          }
   }
 }
 </script>
